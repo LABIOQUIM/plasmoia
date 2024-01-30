@@ -1,0 +1,14 @@
+.chartContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-md);
+}
+
+.chartSectionContainer {
+  display: flex;
+  gap: var(--mantine-spacing-lg);
+}
+
+.fillSpace {
+  flex: 1;
+}

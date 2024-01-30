@@ -1,0 +1,85 @@
+version: "3"
+
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: apps/ui/Dockerfile
+    image: labioquim/plasmoid-ui:prod
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.ui.loadbalancer.server.port=3000"
+      - "traefik.http.routers.ui.rule=Host(`${UI_URL}`)"
+      - "traefik.http.routers.ui.service=ui"
+      - "traefik.http.routers.ui.tls=true"
+      - "traefik.http.routers.ui.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.ui.tls.domains[0].main=${UI_URL}"
+      - "traefik.http.routers.ui.entryPoints=websecure"
+    depends_on:
+      - database
+
+  database:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "plasmoid"
+    restart: always
+    ports:
+     - "5432:5432"
+    volumes:
+      - database:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - redis:/data
+
+  mailer:
+    image: murilofuza/simple-mail:0.0.6
+    env_file: .env
+    volumes:
+      - ./emails:/templates
+
+  # INFRA
+  traefik:
+    image: traefik
+    restart: always
+    command:
+      - "--log.level=DEBUG"
+      - "--api.dashboard=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedByDefault=false"
+      - "--providers.docker.watch=true"
+
+      - "--certificatesresolvers.letsencrypt.acme.email=ivoprovensi1@gmail.com"  # replace with your email
+      - "--certificatesresolvers.letsencrypt.acme.storage=acme/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
+
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.analytics.address=:8000"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entryPoints.web.http.redirections.entrypoint.permanent=true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - traefik_acme:/acme
+      - traefik_logs:/logs
+    ports:
+      - 80:80
+      - 443:443
+      - 8000:8000
+
+volumes:
+  traefik_acme:
+    driver: nfsvol
+  traefik_logs:
+    driver: nfsvol
+  database:
+    driver: nfsvol
+  redis:
+    driver: nfsvol
+    

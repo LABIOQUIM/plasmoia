@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum USER_STATUS {
+  ACTIVE
+  AWAITING_ACTIVATION
+  INACTIVE
+}
+
+enum USER_ROLE {
+  USER
+  ADMINISTRATOR
+}
+
+model User {
+  id        String      @id @unique
+  firstName String      @map("first_name")
+  lastName  String?     @map("last_name")
+  email     String      @unique
+  username  String      @unique
+  status    USER_STATUS @default(AWAITING_ACTIVATION)
+  role      USER_ROLE   @default(USER)
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  authSession    Session[]
+  key            Key[]
+  cells          Cell[]
+  userActivation UserActivation?
+
+  @@map("users")
+}
+
+model UserActivation {
+  id        String   @id @unique @default(uuid())
+  userId    String   @unique @map("user_id")
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_activations")
+}
+
+model Session {
+  id             String @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+
+  user User @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("sessions")
+}
+
+model Key {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String
+
+  user User @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("keys")
+}
+
+model Cell {
+  id         String   @id @unique @default(uuid())
+  userId     String   @map("user_id")
+  image      String
+  isInfected Boolean  @map("is_infected")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("cells")
+}

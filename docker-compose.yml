@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: apps/ui/Dockerfile.dev
+    image: labioquim/plasmoia-ui:dev
+    command: ["yarn", "workspace", "ui", "dev"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mailer
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/apps/ui/.next
+  
+  predictor:
+    build: 
+      context: ./apps/predictor
+      dockerfile: Dockerfile.dev
+    image: labioquim/plasmoia-predictor:dev
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+    ports:
+      - "3001:80"
+    volumes:
+      - ./apps/predictor/app:/code/app
+
+  mailer:
+    image: murilofuza/simple-mail:0.0.6
+    env_file: .env
+    ports:
+      - "3002:3000"
+    volumes:
+      - ./emails:/templates
+
+  database:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "plasmoia"
+    volumes:
+      - database:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis:/data
+
+volumes:
+  database:
+    driver: nfsvol
+  redis:
+    driver: nfsvol

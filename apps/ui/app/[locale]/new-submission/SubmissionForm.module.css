@@ -1,0 +1,51 @@
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-xs);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-xs);
+
+  @media (min-width: $mantine-breakpoint-lg) {
+    flex-direction: row;
+  }
+}
+
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-md);
+}
+
+.dropzone {
+  height: calc(100vh - 60px - 95px - (var(--mantine-spacing-md) * 7) - 45px - 27px);
+  justify-content: center;
+  gap: var(--mantine-spacing-xl);
+  pointer-events: none;
+}
+
+.previewContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-xs);
+}
+
+.previewImage {
+  height: auto;
+  width: 100%;
+
+  @media (min-width: $mantine-breakpoint-lg) {
+    width: 256px;
+  }
+}
+
+.sendButton {
+  width: 100%;
+
+  @media (min-width: $mantine-breakpoint-lg) {
+    width: calc(100% - 256px - var(--mantine-spacing-xs));
+  }
+}
