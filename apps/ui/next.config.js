@@ -6,20 +6,6 @@ const nextConfig = {
       bodySizeLimit: "5mb",
     },
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        port: "",
-      },
-      {
-        protocol: "https",
-        hostname: "placekitten.com",
-        port: "",
-      },
-    ],
-  },
 };
 
 module.exports = nextConfig;

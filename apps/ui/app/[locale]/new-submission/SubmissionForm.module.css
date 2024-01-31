@@ -38,7 +38,10 @@
 }
 
 .previewImage {
+  border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-5));
+  border-radius: var(--mantine-radius-md);
   height: auto;
+  object-fit: cover;
   width: 100%;
 
   @media (min-width: $mantine-breakpoint-lg) {
@@ -59,4 +62,14 @@
   flex-direction: column;
   gap: var(--mantine-spacing-sm);
   flex: 1;
+}
+
+.noPreviewContainer {
+  align-items: center;
+  border: 1px solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-5));
+  border-radius: var(--mantine-radius-md);
+  display: flex;
+  height: 256px;
+  justify-content: center;
+  width: 256px;
 }

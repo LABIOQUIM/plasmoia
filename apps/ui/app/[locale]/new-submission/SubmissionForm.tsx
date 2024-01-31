@@ -162,17 +162,23 @@ export function SubmissionForm() {
         <Box className={classes.innerContainer}>
           <Box>
             <Title order={4}>Preview</Title>
-            <Image
-              alt=""
-              className={classes.previewImage}
-              src={{
-                src: croppedImage ?? "https://placekitten.com/64/64",
-                height: 256,
-                width: 256,
-              }}
-              height={256}
-              width={256}
-            />
+            {croppedImage ? (
+              <Image
+                alt=""
+                className={classes.previewImage}
+                src={{
+                  src: croppedImage,
+                  height: 256,
+                  width: 256,
+                }}
+                height={256}
+                width={256}
+              />
+            ) : (
+              <Box className={classes.noPreviewContainer}>
+                <IconPhoto size={64} />
+              </Box>
+            )}
           </Box>
           {prediction && isSubmissionLocked && (
             <Alert color={prediction === "infected" ? "red" : "green"}>
