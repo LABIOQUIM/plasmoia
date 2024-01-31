@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 100%;
   /* 100vh - TopBar Height - Footer Height - Gaps - Text Height  */
-  height: calc(100vh - 60px - 95px - (var(--mantine-spacing-md) * 5) - 45px - 27px);
+  height: calc(100vh - 60px - 95px - (var(--mantine-spacing-md) * 10) - 45px - 27px - 80px);
   gap: var(--mantine-spacing-sm);
 }
 

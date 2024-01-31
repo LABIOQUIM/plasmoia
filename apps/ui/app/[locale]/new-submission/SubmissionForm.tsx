@@ -1,6 +1,15 @@
 "use client";
 import { FormEvent, useEffect, useState } from "react";
-import { Alert, Box, Button, Group, rem, Text, Title } from "@mantine/core";
+import {
+  Alert,
+  Box,
+  Button,
+  Group,
+  rem,
+  Text,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { notifications } from "@mantine/notifications";
 import { IconPhoto, IconUpload, IconX } from "@tabler/icons-react";
@@ -22,6 +31,7 @@ export function SubmissionForm() {
 
   const [image, setImage] = useState<string>();
   const [croppedImage, setCroppedImage] = useState<string>();
+  const [description, setDescription] = useState<string>();
   const [prediction, setPrediction] = useState<"infected" | "not-infected">();
   const [isSubmissionLocked, setIsSubmissionLocked] = useState(false);
 
@@ -38,9 +48,9 @@ export function SubmissionForm() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (croppedImage) {
+    if (croppedImage && description) {
       setIsSubmissionLocked(true);
-      newSubmission(croppedImage).then((result) => {
+      newSubmission(croppedImage, description).then((result) => {
         if (result === "failed" || result === "no-session") {
           notifications.show({
             color: "orange",
@@ -70,7 +80,7 @@ export function SubmissionForm() {
 
   if (!image) {
     return (
-      <Box className={classes.innerContainer}>
+      <Box className={classes.dropzoneContainer}>
         <Dropzone
           onDrop={(files) => {
             if (files && files.length >= 1) {
@@ -135,12 +145,20 @@ export function SubmissionForm() {
   return (
     <Box component="form" className={classes.formContainer} onSubmit={onSubmit}>
       <Box className={classes.container}>
-        <ImageCropper
-          clearImage={clearImage}
-          image={image}
-          setCroppedImage={setCroppedImage}
-          unlockSubmission={unlockSubmission}
-        />
+        <Box className={classes.cropperContainer}>
+          <TextInput
+            description="A text to help identify this cell/image"
+            label="Description"
+            onChange={(e) => setDescription(e.target.value)}
+            withAsterisk
+          />
+          <ImageCropper
+            clearImage={clearImage}
+            image={image}
+            setCroppedImage={setCroppedImage}
+            unlockSubmission={unlockSubmission}
+          />
+        </Box>
         <Box className={classes.innerContainer}>
           <Box>
             <Title order={4}>Preview</Title>
@@ -167,7 +185,7 @@ export function SubmissionForm() {
       <Button
         color="#059669"
         className={classes.sendButton}
-        disabled={!croppedImage || isSubmissionLocked}
+        disabled={!croppedImage || !description || isSubmissionLocked}
         size="xl"
         type="submit"
       >

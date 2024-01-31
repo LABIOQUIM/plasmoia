@@ -76,11 +76,12 @@ model Key {
 }
 
 model Cell {
-  id         String   @id @unique @default(uuid())
-  userId     String   @map("user_id")
-  image      String
-  isInfected Boolean  @map("is_infected")
-  createdAt  DateTime @default(now()) @map("created_at")
+  id          String   @id @unique @default(uuid())
+  userId      String   @map("user_id")
+  image       String
+  description String
+  isInfected  Boolean  @map("is_infected")
+  createdAt   DateTime @default(now()) @map("created_at")
 
   user User @relation(fields: [userId], references: [id])
 

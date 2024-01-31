@@ -35,7 +35,7 @@ const infectionState = {
   0: "not-infected",
 } as const;
 
-export async function newSubmission(dataURL: string) {
+export async function newSubmission(dataURL: string, description: string) {
   const session = await getSession();
 
   if (!session) {
@@ -56,6 +56,7 @@ export async function newSubmission(dataURL: string) {
       data: {
         userId: session.user.id,
         image: dataURL,
+        description,
         isInfected,
       },
     });
