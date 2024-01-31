@@ -44,7 +44,7 @@ export function Shell({ session, children }: PropsWithChildren<Props>) {
       padding="md"
     >
       <AppShell.Header>
-        <Group justify="space-between" h="48px" w="100%" px="md">
+        <Group align="center" justify="space-between" h="100%" w="100%" px="md">
           <Group>
             <Burger
               opened={opened}

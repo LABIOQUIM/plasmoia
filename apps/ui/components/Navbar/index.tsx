@@ -7,6 +7,7 @@ import {
   IconCrown,
   IconInfoCircle,
   IconLogout,
+  IconPlus,
 } from "@tabler/icons-react";
 import Link from "next/link";
 
@@ -27,7 +28,12 @@ interface MainLink {
 const links: MainLink[] = [
   { icon: IconCrown, label: "Admin Dashboard", href: "/dashboard" },
   { icon: IconInfoCircle, label: "About", href: "/" },
-  { icon: IconCell, label: "New Submission", href: "/new-submission" },
+  { icon: IconCell, label: "My Submissions", href: "/my-submissions" },
+  {
+    icon: IconPlus,
+    label: "New Submission",
+    href: "/new-submission",
+  },
 ];
 
 interface Props {
