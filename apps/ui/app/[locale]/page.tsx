@@ -5,6 +5,7 @@ import Link from "next/link";
 import fernandoImg from "@/assets/maintainers/fernando.jpg";
 import ivoImg from "@/assets/maintainers/ivo.jpg";
 import jonathanImg from "@/assets/maintainers/jonathan.gif";
+import rosimarImg from "@/assets/maintainers/rosimar.png";
 import { Logo } from "@/components/Logo";
 import { PageLayout } from "@/components/PageLayout";
 
@@ -15,17 +16,22 @@ export default async function Home() {
     {
       name: "Dr. Fernando B. Zanchi",
       photo: fernandoImg,
-      lattes: "http://lattes.cnpq.br/0564343474986429",
+      lattes: "https://lattes.cnpq.br/0564343474986429",
     },
     {
       name: "Dr. Jonathan da Silva Ramos",
       photo: jonathanImg,
-      lattes: "http://lattes.cnpq.br/9821082332703697",
+      lattes: "https://lattes.cnpq.br/9821082332703697",
+    },
+    {
+      name: "Rosimar Pires Esquerdo",
+      photo: rosimarImg,
+      lattes: "https://lattes.cnpq.br/8747418814745039",
     },
     {
       name: "Ivo Henrique Provensi Vieira",
       photo: ivoImg,
-      lattes: "http://lattes.cnpq.br/5130583751808996",
+      lattes: "https://lattes.cnpq.br/5130583751808996",
     },
   ];
 
