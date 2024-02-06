@@ -1,5 +1,7 @@
 
 
+## [0.2.9](https://github.com/LABIOQUIM/plasmoia/compare/0.2.8...0.2.9) (2024-02-06)
+
 ## [0.2.8](https://github.com/LABIOQUIM/plasmoia/compare/0.2.7...0.2.8) (2024-02-06)
 
 
