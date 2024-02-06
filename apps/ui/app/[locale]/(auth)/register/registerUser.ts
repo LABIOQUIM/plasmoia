@@ -46,6 +46,8 @@ export async function registerUser(data: RegisterFormInputs) {
       return "existing-user";
     }
 
+    console.log(e);
+
     return "unknown-error";
   }
 }

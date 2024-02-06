@@ -38,7 +38,7 @@ services:
   database:
     image: postgres:15-alpine
     ports:
-      - "5432:5432"
+      - "65432:5432"
     environment:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_DB: "plasmoia"
