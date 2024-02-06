@@ -1,5 +1,12 @@
 
 
+## [0.2.8](https://github.com/LABIOQUIM/plasmoia/compare/0.2.7...0.2.8) (2024-02-06)
+
+
+### Bug Fixes
+
+* change mentions of plasmoqsar to plasmoia ([cb8e1bc](https://github.com/LABIOQUIM/plasmoia/commit/cb8e1bc0d289effc5f4652228e4c5fe11b455e5f))
+
 ## [0.2.7](https://github.com/LABIOQUIM/plasmoia/compare/0.2.6...0.2.7) (2024-02-06)
 
 ## [0.2.6](https://github.com/LABIOQUIM/plasmoia/compare/0.2.5...0.2.6) (2024-02-06)
