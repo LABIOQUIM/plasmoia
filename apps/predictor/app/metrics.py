@@ -2,6 +2,8 @@ import os
 import random
 from pathlib import Path
 import matplotlib.pyplot as plt
+import os
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
 import numpy as np
 from PIL import Image
 import tensorflow as tf

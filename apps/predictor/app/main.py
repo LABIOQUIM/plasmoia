@@ -3,6 +3,9 @@ from contextlib import asynccontextmanager
 from app.metrics import Metrics
 from PIL import Image
 from io import BytesIO
+import os
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+
 import numpy as np
 import tensorflow as tf
 
