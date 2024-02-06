@@ -36,7 +36,7 @@ services:
       POSTGRES_DB: "plasmoia"
     restart: always
     ports:
-     - "5432:5432"
+     - "65432:5432"
     volumes:
       - database:/var/lib/postgresql/data
 
