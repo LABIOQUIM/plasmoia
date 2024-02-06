@@ -1,9 +1,10 @@
 "use client";
-import { Avatar, Box, Paper, Title } from "@mantine/core";
+import { Avatar, Box, Paper, Text, Title } from "@mantine/core";
+import Link from "next/link";
 
 import fernandoImg from "@/assets/maintainers/fernando.jpg";
 import ivoImg from "@/assets/maintainers/ivo.jpg";
-import railtonImg from "@/assets/maintainers/railton.jpeg";
+import jonathanImg from "@/assets/maintainers/jonathan.gif";
 import { Logo } from "@/components/Logo";
 import { PageLayout } from "@/components/PageLayout";
 
@@ -14,28 +15,40 @@ export default async function Home() {
     {
       name: "Dr. Fernando B. Zanchi",
       photo: fernandoImg,
+      lattes: "http://lattes.cnpq.br/0564343474986429",
     },
     {
-      name: "Railton Marques de Souza Guimarães",
-      photo: railtonImg,
+      name: "Dr. Jonathan da Silva Ramos",
+      photo: jonathanImg,
+      lattes: "http://lattes.cnpq.br/9821082332703697",
     },
     {
-      name: "Ivo Vieira",
+      name: "Ivo Henrique Provensi Vieira",
       photo: ivoImg,
+      lattes: "http://lattes.cnpq.br/5130583751808996",
     },
   ];
 
   return (
     <PageLayout>
       <Logo />
+
+      <Text>
+        PlasmoIA is a web interface that utilizes artificial intelligence to
+        detect Plasmodium Vivax in images of Malaria laboratorial exams.
+      </Text>
       <Title mt="md" order={4}>
-        PlasmoQSAR is maintained by
+        PlasmoIA is maintained by
       </Title>
 
       <Box className={mClasses.container}>
         {maintainers.map((maintainer) => (
           <Paper
             className={mClasses.paperContainer}
+            component={Link}
+            href={maintainer.lattes}
+            target="_blank"
+            referrerPolicy="no-referrer"
             key={maintainer.name}
             withBorder
           >
@@ -46,6 +59,16 @@ export default async function Home() {
           </Paper>
         ))}
       </Box>
+
+      <Title mt="mt" order={4}>
+        Contact
+      </Title>
+      <Text>
+        If needed you can contact{" "}
+        <Link href="mailto:fernando.zanchi@fiocruz.br">
+          fernando.zanchi@fiocruz.br
+        </Link>
+      </Text>
     </PageLayout>
   );
 }
