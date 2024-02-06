@@ -9,13 +9,13 @@ services:
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.ui.loadbalancer.server.port=3000"
-      - "traefik.http.routers.ui.rule=Host(`${UI_URL}`)"
-      - "traefik.http.routers.ui.service=ui"
-      - "traefik.http.routers.ui.tls=true"
-      - "traefik.http.routers.ui.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.ui.tls.domains[0].main=${UI_URL}"
-      - "traefik.http.routers.ui.entryPoints=websecure"
+      - "traefik.http.services.plasmoia.loadbalancer.server.port=3000"
+      - "traefik.http.routers.plasmoia.rule=Host(`${UI_URL}`)"
+      - "traefik.http.routers.plasmoia.service=plasmoia"
+      - "traefik.http.routers.plasmoia.tls=true"
+      - "traefik.http.routers.plasmoia.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.plasmoia.tls.domains[0].main=${UI_URL}"
+      - "traefik.http.routers.plasmoia.entryPoints=websecure"
     depends_on:
       - database
 
@@ -52,42 +52,7 @@ services:
     volumes:
       - ./emails:/templates
 
-  # INFRA
-  traefik:
-    image: traefik
-    restart: always
-    command:
-      - "--log.level=DEBUG"
-      - "--api.dashboard=false"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedByDefault=false"
-      - "--providers.docker.watch=true"
-
-      - "--certificatesresolvers.letsencrypt.acme.email=ivoprovensi1@gmail.com"  # replace with your email
-      - "--certificatesresolvers.letsencrypt.acme.storage=acme/acme.json"
-      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
-      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
-
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.analytics.address=:8000"
-      - "--entryPoints.web.address=:80"
-      - "--entryPoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entryPoints.web.http.redirections.entryPoint.scheme=https"
-      - "--entryPoints.web.http.redirections.entrypoint.permanent=true"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - traefik_acme:/acme
-      - traefik_logs:/logs
-    ports:
-      - 80:80
-      - 443:443
-      - 8000:8000
-
 volumes:
-  traefik_acme:
-    driver: nfsvol
-  traefik_logs:
-    driver: nfsvol
   database:
     driver: nfsvol
   redis:
