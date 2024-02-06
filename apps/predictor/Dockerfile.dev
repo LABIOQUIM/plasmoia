@@ -1,5 +1,8 @@
 FROM python:3.9
 
+ENV OPENBLAS_NUM_THREADS=1
+ENV OMP_NUM_THREADS=1
+
 WORKDIR /code
 
 COPY ./requirements.txt /code/requirements.txt
