@@ -1,5 +1,14 @@
 
 
+## 0.2.0 (2024-02-06)
+
+
+### Features
+
+* added user dashboard ([14b7dc5](https://github.com/LABIOQUIM/plasmoia/commit/14b7dc5c26228ff4ad6567da35be7f7967dc3dae))
+* requires cell/image description on submission ([cabd90b](https://github.com/LABIOQUIM/plasmoia/commit/cabd90bbb22acc89585ea1c8a8a80bec91d936ba))
+* v1 ([f104357](https://github.com/LABIOQUIM/plasmoia/commit/f104357101a3b2b8472cd0b452397636e48f381d))
+
 ## 0.1.1 (2023-12-20)
 
 
