@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: apps/ui/Dockerfile
-    image: labioquim/plasmoid-ui:prod
+    image: labioquim/plasmoia-ui:prod
     restart: always
     labels:
       - "traefik.enable=true"
@@ -19,11 +19,21 @@ services:
     depends_on:
       - database
 
+  predictor:
+    build: 
+      context: ./apps/predictor
+      dockerfile: Dockerfile.dev
+    image: labioquim/plasmoia-predictor:dev
+    restart: always
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+    volumes:
+      - ./apps/predictor/app:/code/app
+
   database:
     image: postgres:15-alpine
     environment:
       POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: "plasmoid"
+      POSTGRES_DB: "plasmoia"
     restart: always
     ports:
      - "5432:5432"
