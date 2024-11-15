@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, Box, Paper, Text, Title } from "@mantine/core";
+import { Avatar, Box, List, Paper, Text, Title } from "@mantine/core";
 import Link from "next/link";
 
 import fernandoImg from "@/assets/maintainers/fernando.jpg";
@@ -43,6 +43,21 @@ export default async function Home() {
         PlasmoIA is a web interface that utilizes artificial intelligence to
         detect Plasmodium Vivax in images of Malaria laboratorial exams.
       </Text>
+
+      <List type="ordered">
+        <List.Item>
+          Ramos JdS, Vieira IHP, Rocha WS, Esquerdo RP, Watanabe CYV, et al.
+          (2024) A transfer learning approach to identify Plasmodium in
+          microscopic images. PLOS Computational Biology 20(8): e1012327.{" "}
+          <Link
+            target="__blank"
+            href="https://doi.org/10.1371/journal.pcbi.1012327"
+          >
+            https://doi.org/10.1371/journal.pcbi.1012327
+          </Link>
+        </List.Item>
+      </List>
+
       <Title mt="md" order={4}>
         PlasmoIA is maintained by
       </Title>
